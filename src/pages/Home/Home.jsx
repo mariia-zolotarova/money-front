@@ -152,7 +152,7 @@ export default function Home() {
     });
 
     if(!balanceLoading && !balanceError && balanceData && !isBalanceSet){
-        setBalance(balanceData.balance.data.attributes.balance)
+        setBalance(balanceData.balance.data?.attributes?.balance ?? 0)
         setIsBalanceSet(true);
     }
 

@@ -2,6 +2,7 @@ import './categories.scss'
 import {gql, useMutation, useQuery} from "@apollo/client";
 import React, {useState} from "react";
 import ModalNewCategory from "./ModalNewCategory";
+import {getBaseUrl} from "../../index";
 
 const GET_CATEGORIES = gql`
     query getCategories($pagination: PaginationArg){
@@ -91,7 +92,7 @@ export default function Categories() {
                     <div className="category__card" key={category.id}>
                         <div className="category__img-container">
                             <img className="category__img"
-                                 src={category.attributes.img?.data?.attributes?.url ? `http://localhost:1337${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
+                                 src={category.attributes.img?.data?.attributes?.url ? `${getBaseUrl()}/${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
                                  alt=""/>
                         </div>
                         <h3 className="category__name">{category.attributes.title}</h3>

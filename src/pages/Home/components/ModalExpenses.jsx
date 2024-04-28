@@ -1,7 +1,8 @@
-import {Button, Modal} from 'antd';
+import {Modal} from 'antd';
 import React, { useState } from 'react';
 import {InputNumber, Select} from 'antd';
 import {gql, useQuery} from "@apollo/client";
+import {getBaseUrl} from "../../../index";
 
 
 const { Option } = Select;
@@ -83,7 +84,7 @@ export default function ModalExpenses({setIsModalOpen, isModalOpen, onAddExpense
                                   onClick={() => selectCategory(category.id)}>
                                 <div className="expenses__img-container">
                                     <img className="category__img"
-                                         src={category.attributes.img?.data?.attributes?.url ? `http://localhost:1337${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
+                                         src={category.attributes.img?.data?.attributes?.url ? `${getBaseUrl()}/${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
                                          alt=""/></div>
                                 <h3 className="expenses__name">{category.attributes.title}</h3>
                             </div>
