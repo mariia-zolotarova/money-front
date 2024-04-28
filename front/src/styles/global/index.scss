@@ -1,0 +1,18 @@
+.container{
+  //margin: 0 auto;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: center;
+  //
+  margin: 30px auto;
+
+  max-width: 900px;
+  background-color: var(--Base-White);
+  border-radius: 15px;
+  padding: 40px;
+}
+
+body{
+  background-color: var(--grey);
+
+}

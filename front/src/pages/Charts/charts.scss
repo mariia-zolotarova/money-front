@@ -1,0 +1,40 @@
+.charts__row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  margin: 50px;
+}
+
+.charts__row-item{
+  border: 3px solid #8f8f8f;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.charts__column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.charts__title{
+  padding-bottom: 20px;
+  font: var(--title-font);
+}
+
+.income__row,
+.expenses__row{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.chartdiv-expense{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

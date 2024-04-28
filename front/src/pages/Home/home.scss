@@ -1,0 +1,81 @@
+.balance__container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+}
+
+.expenses__container,
+.income__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.expenses__cards{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.expenses__card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.expenses__card-selected .expenses__img-container{
+  background-color: #39f539;
+  border: 2px solid #108503;
+}
+
+.expenses__card-selected .expenses__name{
+  color: #108503;
+}
+
+.expenses__img-container{
+  background-color: #e1fce1;
+  border: 2px solid black;
+  border-radius: 100%;
+  cursor: pointer;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.expenses__img{
+  width: 30px;
+  height: 30px;
+}
+
+.income__table{
+  width: 500px;
+}
+
+.expenses__table{
+  width: 800px;
+}
+
+.date__row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.expenses__button,
+.income__button{
+  width: 200px;
+  height: 50px;
+  font-size: large;
+}
+
+.balance__title,
+.balance__sum{
+  //font: var(--title-font);
+  font-size: 24px;
+  font-weight: 600;
+}

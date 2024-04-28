@@ -1,0 +1,38 @@
+.footer__container{
+  background-color: var(--Base-Black);
+  color: var(--Base-White);
+  padding: 20px 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer__socials{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.footer__socials-icon{
+  width: 30px;
+  height: 30px;
+}
+
+.footer-beetroot-side{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: end;
+}
+
+.footer__teacher{
+  text-decoration: none;
+  color: var(--Base-White);
+}
+
+.footer__socials-beetroot{
+  width: 120px;
+  background-color: var(--Base-White);
+  border-radius: 15px;
+}
