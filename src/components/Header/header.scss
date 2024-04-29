@@ -1,0 +1,24 @@
+.user__column{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 18px;
+  gap: 10px;
+}
+
+.user__row{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.user__row-icon{
+  font-size: 20px;
+  color: var(--Base-Black);
+  cursor: pointer;
+}
+
+.user__row-icon:hover{
+  color: #22c522;
+}

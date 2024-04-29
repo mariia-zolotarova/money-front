@@ -1,10 +1,33 @@
 import './header.scss'
 import React from 'react';
 import {Header} from "antd/es/layout/layout";
-import {Menu, theme} from "antd";
-import { UserOutlined } from '@ant-design/icons';
-import {Link, Route, Routes} from 'react-router-dom';
-import { Avatar } from 'antd';
+import {Menu} from "antd";
+import {Link} from 'react-router-dom';
+import { Dropdown } from 'antd';
+import {UserOutlined, MailOutlined, DeleteOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
+import {gql, useQuery} from "@apollo/client";
+
+const GET_PEOPLE = gql`
+    query getPerson($pagination: PaginationArg){
+        people(pagination: $pagination){
+            meta {
+                pagination {
+                    pageSize
+                }
+            }
+            data{
+                id
+                attributes{
+                    name
+                    email
+                    password
+                    createdAt
+                }
+            }
+        }}
+`;
+
+
 
 const items = [
     {
@@ -25,10 +48,41 @@ const items = [
     }]
 
 
+
+
 const App = () => {
-    // const {
-    //     token: { colorBgContainer, borderRadiusLG },
-    // } = theme.useToken();
+    const {loading, error, data} = useQuery(GET_PEOPLE, {
+        variables: {
+            pagination: {
+                pageSize: 1000
+            }
+        }
+    });
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+    const people = data?.people?.data || []
+
+
+    const users = people.map(person => ({
+        key: person.id,
+        label: (
+
+            <div className="user__column">
+                <div className="user__row">
+                    <p>{person.attributes.name}</p>
+                    {/*<a href="mailto:mashyna1610@gmail.com"><MailOutlined className="user__row-mail"/></a>*/}
+                </div>
+                <p>{person.attributes.email}</p>
+                <div className="user__row">
+                    <UserAddOutlined  className="user__row-icon"/>
+                    <SettingOutlined  className="user__row-icon"/>
+                </div>
+            </div>
+        ),
+    }));
+
     return (
         <Header
             style={{
@@ -41,6 +95,7 @@ const App = () => {
 
             }}
         >
+
             <div className="demo-logo"/>
             <Menu
                 theme="dark"
@@ -52,12 +107,19 @@ const App = () => {
                     minWidth: 0,
 
                 }}
-
             />
 
-            <Link to="/person">
-                <Avatar icon={<UserOutlined/>}></Avatar>
-            </Link>
+            <div>
+            <Dropdown
+                menu={{
+                    items: users,
+                }}
+                placement="topRight"
+            >
+                {/*<Button>topRight</Button>*/}
+                <UserOutlined style={{ fontSize: '20px', color: '#FFF', cursor:'pointer' }}/>
+            </Dropdown>
+            </div>
         </Header>
 
     );
