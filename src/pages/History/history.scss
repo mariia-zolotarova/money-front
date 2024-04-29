@@ -2,13 +2,15 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
-  padding: 20px;
   justify-content: center;
 }
 
 .history__title{
   padding: 20px 0;
   font: var(--title-font);
+  @media (max-width: 768px) {
+    font: var(--title-font-mobile);
+  }
 }
 
 .green{
@@ -21,6 +23,17 @@
 
 .history__table{
   width: 800px;
+  font: var(--text-font);
+  @media (max-width: 922px) {
+    max-width: 760px;
+    font: var(--text-font-mobile);
+  }
+  @media (max-width: 768px) {
+    max-width: 550px;
+  }
+  @media (max-width: 600px) {
+    max-width: 300px;
+  }
 }
 
 .history__container{

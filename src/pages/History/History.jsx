@@ -106,18 +106,18 @@ export default function History() {
             dataIndex: ['amount'],
             key: 'amount',
             render: (amount) => {
-                return <h4>{amount}</h4>
+                return <h4>{amount} ₴</h4>
             },
             sorter: (a, b) => a.amount - b.amount
         },
-        {
-            title: 'Currency',
-            dataIndex: ['currency'],
-            key: 'currency',
-            render: (currency) => {
-                return <p>{currency}</p>
-            },
-        },
+        // {
+        //     title: 'Currency',
+        //     dataIndex: ['currency'],
+        //     key: 'currency',
+        //     render: (currency) => {
+        //         return <p>{currency}</p>
+        //     },
+        // },
         {
             title: 'Category',
             dataIndex: ['categoryName'],
@@ -150,7 +150,7 @@ export default function History() {
             return {
                 id: `expense-${expense.id}`,
                 amount: expense.attributes.amount,
-                currency: expense.attributes.currency,
+                // currency: expense.attributes.currency,
                 categoryName: getCategoryName(expense.attributes.category_Id, categories),
                 publishedAt: expense.attributes.publishedAt
             }
@@ -159,7 +159,7 @@ export default function History() {
             return {
                 id: `income-${income.id}`,
                 amount: income.attributes.balance,
-                currency: 'UAH',
+                // currency: 'UAH',
                 categoryName: 'Income',
                 publishedAt: income.attributes.publishedAt
             }

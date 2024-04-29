@@ -55,6 +55,7 @@ export default function ChartExpense({expenses}) {
     }, []);
 
     return (
-        <div id="chartdiv-expense" className="chartdiv-expense" style={{ width: "600px", height: "400px" }}></div>
+        <div id="chartdiv-expense" className="chartdiv-expense"></div>
+        // <div id="chartdiv-expense" className="chartdiv-expense" style={{ width: "600px", height: "400px" }}></div>
     );
 }

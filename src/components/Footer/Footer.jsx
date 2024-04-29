@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <div className="footer footer__container">
             <div className="footer-socials-side">
-                <p>Mariia Zolotarova</p>
+                <p className="footer-socials-person">Mariia Zolotarova</p>
                 <p>+38 (066) 039 85 73</p>
                 <div className="footer__socials">
                     <a href="https://www.linkedin.com/in/mariia-zolotarova-a6b30218a/" target="_blank">

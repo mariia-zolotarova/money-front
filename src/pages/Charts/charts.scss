@@ -10,6 +10,16 @@
   border: 3px solid #8f8f8f;
   border-radius: 15px;
   padding: 20px;
+  width: 600px;
+
+  @media (max-width: 768px) {
+    width: 500px;
+    padding: 10px;
+  }
+  @media (max-width: 600px) {
+    max-width: 300px;
+    padding: 5px;
+  }
 }
 
 .charts__column{
@@ -22,6 +32,9 @@
 .charts__title{
   padding-bottom: 20px;
   font: var(--title-font);
+  @media (max-width: 768px) {
+    font: var(--title-font-mobile);
+  }
 }
 
 .income__row,
@@ -32,9 +45,22 @@
 
 }
 
-.chartdiv-expense{
+.chartdiv-expense,
+.chartdiv-income{
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 600px;
+  height: 400px;
+
+  @media (max-width: 768px) {
+    width: 500px;
+    height: 400px;
+  }
+  @media (max-width: 600px) {
+    width: 300px;
+    height: 300px;
+  }
 }
+
 

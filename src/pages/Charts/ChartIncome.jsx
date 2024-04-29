@@ -3,6 +3,7 @@ import { useLayoutEffect } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import am5themes_Responsive from "@amcharts/amcharts5/themes/Responsive";
 
 export default function ChartIncome({incomes}){
     useLayoutEffect(() => {
@@ -56,14 +57,17 @@ export default function ChartIncome({incomes}){
         );
         series1.data.setAll(chartData);
 
-        // let legend = chart.children.push(am5.Legend.new(root, {
-        //     centerX: am5.percent(20),
-        //     centerY: am5.percent(100),
-        //     x: am5.percent(50),
-        //     layout: root.horizontalLayout
+        // let responsive = chart.xAxes.push(
+        //     am5xy.ColumnSeries.new(root, {
+        //         name: "Income",
+        //         relevant: function(width, height) {
+        //             return width < 600;
+        //         },
+        //         settings: {
+        //             inside: true
+        //         }
         // }));
-        // legend.data.setAll(chart.series.values);
-
+        // responsive.data.setAll(chartData);
 
         // Add cursor
         chart.set("cursor", am5xy.XYCursor.new(root, {}));
@@ -74,6 +78,7 @@ export default function ChartIncome({incomes}){
     }, [incomes]);
 
     return (
-        <div id="chartdiv-income" style={{ width: "600px", height: "400px" }}></div>
+        // <div id="chartdiv-income" style={{ width: "600px", height: "400px" }}></div>
+        <div id="chartdiv-income" className="chartdiv-income"></div>
     );
 }
