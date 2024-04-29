@@ -84,7 +84,7 @@ export default function ModalExpenses({setIsModalOpen, isModalOpen, onAddExpense
                                   onClick={() => selectCategory(category.id)}>
                                 <div className="expenses__img-container">
                                     <img className="category__img"
-                                         src={category.attributes.img?.data?.attributes?.url ? `${getBaseUrl()}/${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
+                                         src={category.attributes.img?.data?.attributes?.url ? `${getBaseUrl()}${category.attributes.img?.data?.attributes?.url}` : "./images/more.png"}
                                          alt=""/></div>
                                 <h3 className="expenses__name">{category.attributes.title}</h3>
                             </div>

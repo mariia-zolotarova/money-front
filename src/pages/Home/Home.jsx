@@ -237,18 +237,6 @@ export default function Home() {
    ]
     const size= 'middle';
 
-   // const onChangeDay = (day) => {
-   //     const startDate = new Date(day)
-   //     const endDate = new Date(day)
-   //     startDate.setUTCDate(new Date(day).getDate())
-   //     endDate.setUTCDate(new Date(day).getDate())
-   //     startDate.setUTCHours(0, 0, 0);
-   //     endDate.setUTCHours(23, 59, 59);
-   //      setStartDateFilter(startDate) // start of the day
-   //      setEndDateFilter(endDate) // end of the day
-   //     console.log(startDate);
-   //     console.log(endDate);
-   // }
 
    const onChangeRange = (startDay, endDay)=>{
        console.log(startDay)
