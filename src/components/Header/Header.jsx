@@ -76,15 +76,15 @@ const App = () => {
                 </div>
                 <p>{person.attributes.email}</p>
                 <div className="user__row">
-                    <UserAddOutlined  className="user__row-icon"/>
-                    <SettingOutlined  className="user__row-icon"/>
+                    <Link to="/registration"><UserAddOutlined  className="user__row-icon" /></Link>
+                    <Link to="/authorization"><SettingOutlined  className="user__row-icon"/></Link>
                 </div>
             </div>
         ),
     }));
 
     return (
-        <Header
+        <Header className="header__container"
             style={{
                 position: 'sticky',
                 top: 0,
