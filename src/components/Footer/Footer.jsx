@@ -2,6 +2,7 @@ import './footer.scss'
 
 export default function Footer() {
     return (
+
         <div className="footer footer__container">
             <div className="footer-socials-side">
                 <p className="footer-socials-person">Mariia Zolotarova</p>

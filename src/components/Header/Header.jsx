@@ -4,12 +4,12 @@ import {Header} from "antd/es/layout/layout";
 import {Menu} from "antd";
 import {Link} from 'react-router-dom';
 import { Dropdown } from 'antd';
-import {UserOutlined, MailOutlined, DeleteOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
+import {UserOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
 import {gql, useQuery} from "@apollo/client";
 
 const GET_PEOPLE = gql`
-    query getPerson($pagination: PaginationArg){
-        people(pagination: $pagination){
+    query getPerson($pagination: PaginationArg, $filters: PersonFiltersInput){
+        people(pagination: $pagination, filters: $filters){
             meta {
                 pagination {
                     pageSize
@@ -55,15 +55,19 @@ const App = () => {
         variables: {
             pagination: {
                 pageSize: 1000
+            },
+            filters:{
+                id:{
+                    eq:1
+                }
             }
-        }
+        },
     });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
     const people = data?.people?.data || []
-
 
     const users = people.map(person => ({
         key: person.id,

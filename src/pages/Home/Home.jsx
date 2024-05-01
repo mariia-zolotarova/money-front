@@ -52,8 +52,8 @@ const CREATE_EXPENSE_MUTATION= gql`
 `;
 
 const FETCH_BALANCE_QUERY = gql`
-    query GetBalance($id: ID!) {
-    balance(id: $id) {
+    query GetBalances($filters: BalanceFiltersInput) {
+    balances(filters: $filters) {
       data {
         id
         attributes {
@@ -126,6 +126,9 @@ export default function Home() {
                         startDateFilter,
                         endDateFilter
                     ]
+                },
+                person_Id:{
+                    eq:1
                 }
             }
         }
@@ -142,17 +145,26 @@ export default function Home() {
                         startDateFilter,
                         endDateFilter
                     ]
+                },
+                person_Id:{
+                    eq:1
                 }
             }
         }
     });
 
     const { data: balanceData, loading: balanceLoading, error:balanceError, refetch: refetchBalance } = useQuery(FETCH_BALANCE_QUERY, {
-        variables: { id: 1 } // Assume you know the user's ID
+        variables: {
+            filters:{
+                person_Id:{
+                    eq:1
+                }
+            }
+        }
     });
 
-    if(!balanceLoading && !balanceError && balanceData && !isBalanceSet){
-        setBalance(balanceData.balance.data?.attributes?.balance ?? 0)
+    if(!balanceLoading && !balanceError && balanceData?.balances?.data?.length > 0 && !isBalanceSet){
+        setBalance(balanceData.balances?.data[0]?.attributes?.balance ?? 0)
         setIsBalanceSet(true);
     }
 

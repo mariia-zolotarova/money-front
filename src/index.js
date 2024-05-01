@@ -6,7 +6,8 @@ import './styles/main.scss'
 import {BrowserRouter} from "react-router-dom";
 import {ConfigProvider} from "antd";
 
-export const getBaseUrl = () => "https://cash-ok-6ee9de3b4935.herokuapp.com";
+//export const getBaseUrl = () => "https://cash-ok-6ee9de3b4935.herokuapp.com";
+export const getBaseUrl = () => "http://localhost:1337";
 // export const getBaseUrl = "http://localhost:1337";
 
 const client = new ApolloClient({
