@@ -1,17 +1,82 @@
 import './authorization.scss'
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {gql, useLazyQuery, useQuery} from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+
+const GET_PEOPLE = gql`
+    query getPerson($pagination: PaginationArg, $filters: PersonFiltersInput){
+        people(pagination: $pagination, filters: $filters){
+            meta {
+                pagination {
+                    pageSize
+                }
+            }
+            data{
+                id
+                attributes{
+                    name
+                    email
+                    password
+                    createdAt
+                }
+            }
+        }}
+`;
+
+
+
 export default function Authorization(){
+
+    const [inputEmailValue, setInputEmailValue] = useState();
+    const [inputPasswordValue, setInputPasswordValue] = useState();
+    const navigate = useNavigate();
+
+
+    const [getPerson, {loading, error, data}] = useLazyQuery(GET_PEOPLE);
+
+    // if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+    const people = data?.people?.data
+    console.log(people)
+
+    const onFinish = async (values) => {
+        await getPerson({
+            variables: {
+                pagination: {
+                    pageSize: 1000
+                },
+                filters: {
+                    and: [
+                        {
+                            email: {
+                                eq: inputEmailValue
+                            }
+                        },
+                        {
+                            password: {
+                                eq: inputPasswordValue
+                            }
+                        }
+                    ]
+                }
+            }
+        })
+        // createPerson();
+        console.log('Success:', values);
+
+        navigate('/');
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
     return (
         <div className="container authorization__container">
+            {loading && <div>loading</div>}
             <Form
                 className="authorization__form"
                 name="basic"
@@ -29,7 +94,6 @@ export default function Authorization(){
 
                 <Form.Item
                     name="email"
-                    // label="E-mail"
                     rules={[
                         {
                             type: 'email',
@@ -41,11 +105,10 @@ export default function Authorization(){
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="E-mail"/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="E-mail" value={inputEmailValue} onChange={(e) => setInputEmailValue(e.target.value)}/>
                 </Form.Item>
 
                 <Form.Item
-                    // label="Password"
                     name="password"
                     rules={[
                         {
@@ -56,7 +119,10 @@ export default function Authorization(){
                 >
                     <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}
                                     type="password"
-                                    placeholder="Password"/>
+                                    placeholder="Password"
+                                    value={inputPasswordValue}
+                                    onChange={(e) => setInputPasswordValue(e.target.value)}
+                    />
                 </Form.Item>
 
                 <Form.Item
@@ -76,7 +142,7 @@ export default function Authorization(){
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" loading={loading}>
                         Submit
                     </Button>
                 </Form.Item>

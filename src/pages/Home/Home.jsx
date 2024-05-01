@@ -185,7 +185,7 @@ export default function Home() {
         setBalance(newBalance);
         await updateBalance({
             variables: {
-                id: 1,
+                id: balanceData.balances?.data[0]?.id,
                 data: {balance: newBalance}
             }
         });
