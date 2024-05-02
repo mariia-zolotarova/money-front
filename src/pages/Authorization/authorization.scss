@@ -1,7 +1,17 @@
 .authorization__form{
-  max-width: 600px;
+  //max-width: 600px;
+  //width: 100%;
   display: flex;
   flex-direction: column;
   margin: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
+.authorization__error{
+  color: red;
+}
+
+.authorization__input{
+  width: 350px;
+}

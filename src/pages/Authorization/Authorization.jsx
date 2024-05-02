@@ -1,9 +1,10 @@
 import './authorization.scss'
 import React, {useState} from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import {gql, useLazyQuery, useQuery} from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import {Button, Checkbox, Form, Input} from 'antd';
+import {LockOutlined, UserOutlined} from '@ant-design/icons';
+import {gql, useLazyQuery} from "@apollo/client";
+import {useNavigate} from "react-router-dom";
+import {Alert} from 'antd';
 
 
 const GET_PEOPLE = gql`
@@ -27,24 +28,14 @@ const GET_PEOPLE = gql`
 `;
 
 
-
-export default function Authorization(){
-
-    const [inputEmailValue, setInputEmailValue] = useState();
-    const [inputPasswordValue, setInputPasswordValue] = useState();
+export default function Authorization() {
     const navigate = useNavigate();
 
-
-    const [getPerson, {loading, error, data}] = useLazyQuery(GET_PEOPLE);
-
-    // if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
-    const people = data?.people?.data
-    console.log(people)
+    const [isAuthFailed, setIsAuthFailed] = useState();
+    const [getPerson, {loading}] = useLazyQuery(GET_PEOPLE);
 
     const onFinish = async (values) => {
-        await getPerson({
+        const {data} = await getPerson({
             variables: {
                 pagination: {
                     pageSize: 1000
@@ -53,12 +44,12 @@ export default function Authorization(){
                     and: [
                         {
                             email: {
-                                eq: inputEmailValue
+                                eq: values.email
                             }
                         },
                         {
                             password: {
-                                eq: inputPasswordValue
+                                eq: values.password
                             }
                         }
                     ]
@@ -66,9 +57,14 @@ export default function Authorization(){
             }
         })
         // createPerson();
-        console.log('Success:', values);
-
-        navigate('/');
+        console.log("success", data)
+        if (data?.people?.data?.length > 0) {
+            navigate('/');
+        }
+        else{
+            setIsAuthFailed(true);
+            // Create new state IsAuthFailed. Set IsAuthFailedSet(true).
+        }
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -80,13 +76,14 @@ export default function Authorization(){
             <Form
                 className="authorization__form"
                 name="basic"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
+                // wrapperCol={{
+                //     offset: 8,
+                //     span: 16,
+                // }}
                 initialValues={{
                     remember: true,
                 }}
+                onFieldsChange={(changedFields) => isAuthFailed && setIsAuthFailed(false)}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -105,7 +102,8 @@ export default function Authorization(){
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="E-mail" value={inputEmailValue} onChange={(e) => setInputEmailValue(e.target.value)}/>
+                    <Input className="authorization__input" prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="E-mail"
+                          />
                 </Form.Item>
 
                 <Form.Item
@@ -117,30 +115,32 @@ export default function Authorization(){
                         },
                     ]}
                 >
-                    <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}
+                    <Input.Password className="authorization__input" prefix={<LockOutlined className="site-form-item-icon"/>}
                                     type="password"
                                     placeholder="Password"
-                                    value={inputPasswordValue}
-                                    onChange={(e) => setInputPasswordValue(e.target.value)}
                     />
                 </Form.Item>
+
+                {
+                    isAuthFailed && <div className="authorization__error">Error, please check your email and password!</div>
+                }
 
                 <Form.Item
                     name="remember"
                     valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+                    // wrapperCol={{
+                    //     offset: 8,
+                    //     span: 16,
+                    // }}
                 >
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
                 <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+                    // wrapperCol={{
+                    //     offset: 8,
+                    //     span: 16,
+                    // }}
                 >
                     <Button type="primary" htmlType="submit" loading={loading}>
                         Submit
