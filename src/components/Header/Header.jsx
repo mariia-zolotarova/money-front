@@ -1,7 +1,7 @@
 import './header.scss'
 import React from 'react';
 import {Header} from "antd/es/layout/layout";
-import {Menu} from "antd";
+import {Button, Menu} from "antd";
 import {Link} from 'react-router-dom';
 import { Dropdown } from 'antd';
 import {UserOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
@@ -69,19 +69,22 @@ const App = () => {
 
     const people = data?.people?.data || []
 
+    const logOut = () => {
+        localStorage.clear();
+    };
+
     const users = people.map(person => ({
         key: person.id,
         label: (
-
             <div className="user__column">
                 <div className="user__row">
                     <p>{person.attributes.name}</p>
-                    {/*<a href="mailto:mashyna1610@gmail.com"><MailOutlined className="user__row-mail"/></a>*/}
                 </div>
                 <p>{person.attributes.email}</p>
                 <div className="user__row">
-                    <Link to="/registration"><UserAddOutlined  className="user__row-icon" /></Link>
-                    <Link to="/authorization"><SettingOutlined  className="user__row-icon"/></Link>
+                    <Button type="primary" className="user__row-button" onClick={logOut}>
+                        <Link to="/authorization">Log Out</Link>
+                    </Button>
                 </div>
             </div>
         ),

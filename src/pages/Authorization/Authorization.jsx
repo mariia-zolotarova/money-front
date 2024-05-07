@@ -1,11 +1,9 @@
 import './authorization.scss'
-import React, {useState} from 'react';
-import {Button, Checkbox, Form, Input} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Button, Checkbox, Form, Input, Space} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {gql, useLazyQuery} from "@apollo/client";
-import {useNavigate} from "react-router-dom";
-import {Alert} from 'antd';
-
+import {Link, useNavigate} from "react-router-dom";
 
 const GET_PEOPLE = gql`
     query getPerson($pagination: PaginationArg, $filters: PersonFiltersInput){
@@ -27,12 +25,16 @@ const GET_PEOPLE = gql`
         }}
 `;
 
-
 export default function Authorization() {
     const navigate = useNavigate();
 
     const [isAuthFailed, setIsAuthFailed] = useState();
     const [getPerson, {loading}] = useLazyQuery(GET_PEOPLE);
+    // const [existPerson, setExistPerson] = useState([]);
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('existPerson', JSON.stringify(existPerson));
+    // }, [existPerson]);
 
     const onFinish = async (values) => {
         const {data} = await getPerson({
@@ -58,10 +60,11 @@ export default function Authorization() {
         })
         // createPerson();
         console.log("success", data)
+
         if (data?.people?.data?.length > 0) {
+            localStorage.setItem('existPerson', JSON.stringify(data.people.data[0]));
             navigate('/');
-        }
-        else{
+        } else {
             setIsAuthFailed(true);
             // Create new state IsAuthFailed. Set IsAuthFailedSet(true).
         }
@@ -76,10 +79,6 @@ export default function Authorization() {
             <Form
                 className="authorization__form"
                 name="basic"
-                // wrapperCol={{
-                //     offset: 8,
-                //     span: 16,
-                // }}
                 initialValues={{
                     remember: true,
                 }}
@@ -102,8 +101,9 @@ export default function Authorization() {
                         },
                     ]}
                 >
-                    <Input className="authorization__input" prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="E-mail"
-                          />
+                    <Input className="authorization__input" prefix={<UserOutlined className="site-form-item-icon"/>}
+                           placeholder="E-mail"
+                    />
                 </Form.Item>
 
                 <Form.Item
@@ -115,36 +115,37 @@ export default function Authorization() {
                         },
                     ]}
                 >
-                    <Input.Password className="authorization__input" prefix={<LockOutlined className="site-form-item-icon"/>}
+                    <Input.Password className="authorization__input"
+                                    prefix={<LockOutlined className="site-form-item-icon"/>}
                                     type="password"
                                     placeholder="Password"
                     />
                 </Form.Item>
 
                 {
-                    isAuthFailed && <div className="authorization__error">Error, please check your email and password!</div>
+                    isAuthFailed && <div className="authorization__error">❗️Invalid email and password</div>
                 }
 
                 <Form.Item
                     name="remember"
                     valuePropName="checked"
-                    // wrapperCol={{
-                    //     offset: 8,
-                    //     span: 16,
-                    // }}
                 >
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
-                <Form.Item
-                    // wrapperCol={{
-                    //     offset: 8,
-                    //     span: 16,
-                    // }}
-                >
-                    <Button type="primary" htmlType="submit" loading={loading}>
-                        Submit
-                    </Button>
+                <Form.Item>
+                        <Button type="primary" htmlType="submit" loading={loading}>
+                            Submit
+                        </Button>
+                </Form.Item>
+
+                <Form.Item>
+                    <div className="authorization__register">
+                    <p>Don't have an account yet?</p>
+                        <Button type="link" htmlType="button" loading={loading}>
+                            <Link to="/registration">Create one.</Link>
+                        </Button>
+                    </div>
                 </Form.Item>
             </Form>
         </div>

@@ -4,6 +4,7 @@ import Income from './components/Income';
 import React, { useState } from 'react';
 import {DatePicker, Row, Tabs} from 'antd';
 import {gql, useQuery,  useMutation } from "@apollo/client";
+import {Navigate} from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
@@ -115,6 +116,13 @@ export default function Home() {
     const [startDateFilter, setStartDateFilter] =  useState(getInitialStartDate());
     const [endDateFilter, setEndDateFilter] =  useState(getInitialEndDate());
 
+    let person={}, personId=-1
+
+    if(localStorage.length>0){
+        person =  JSON.parse(localStorage.getItem("existPerson"));
+        personId = Number(person.id)
+    }
+
     const { loading: incomesLoading, error:incomesError, data : incomesData, refetch: refetchIncomeHistory} = useQuery(GET_INCOMES, {
         variables: {
             pagination: {
@@ -128,7 +136,7 @@ export default function Home() {
                     ]
                 },
                 person_Id:{
-                    eq:1
+                    eq:personId
                 }
             }
         }
@@ -147,7 +155,7 @@ export default function Home() {
                     ]
                 },
                 person_Id:{
-                    eq:1
+                    eq:personId
                 }
             }
         }
@@ -157,11 +165,15 @@ export default function Home() {
         variables: {
             filters:{
                 person_Id:{
-                    eq:1
+                    eq:personId
                 }
             }
         }
     });
+
+    if (localStorage.length === 0) {
+        return <Navigate to="/authorization" replace />
+    }
 
     if(!balanceLoading && !balanceError && balanceData?.balances?.data?.length > 0 && !isBalanceSet){
         setBalance(balanceData.balances?.data[0]?.attributes?.balance ?? 0)
@@ -173,8 +185,8 @@ export default function Home() {
     const incomes = incomesData?.incomes?.data
     const expenses = expensesData?.expenses?.data
 
-    console.log(expenses)
-
+    // console.log(expenses)
+    // console.log("person id:", person.id)
 
    const onChange = (key) => {
       console.log(key);
@@ -198,7 +210,7 @@ export default function Home() {
                 variables: {
                 data: {
                     balance: amount,
-                    person_Id: 1,
+                    person_Id: personId,
                     publishedAt: new Date().toISOString()
                 }
             }}
@@ -214,7 +226,7 @@ export default function Home() {
                     data: {
                         category_Id: categoryId,
                         amount: amount,
-                        person_Id: 1,
+                        person_Id: personId,
                         currency: "UAH",
                         publishedAt: new Date().toISOString()
                     }
@@ -228,7 +240,7 @@ export default function Home() {
         setBalance(newBalance);
         await updateBalance({
             variables: {
-                id: 1,
+                id: personId,
                 data: { balance: newBalance }
             }
         });

@@ -4,8 +4,6 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import {gql, useMutation} from "@apollo/client";
 
-
-
 const CREATE_PERSON_MUTATION= gql`
     mutation createPerson($data: PersonInput!) {
         createPerson(data: $data) {

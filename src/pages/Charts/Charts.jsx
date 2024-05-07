@@ -3,6 +3,7 @@ import ChartIncome from "./ChartIncome";
 import React from "react";
 import ChartExpense from "./ChartExpence";
 import {gql, useQuery} from "@apollo/client";
+import {Navigate} from "react-router-dom";
 
 const GET_INCOMES = gql`
     query getIncomes($pagination: PaginationArg){
@@ -84,6 +85,10 @@ export default function Charts({incomes, expenses}) {
             }
         }
     });
+
+    if (localStorage.length === 0) {
+        return <Navigate to="/authorization" replace />
+    }
 
     if (categoriesLoading) return <p>Loading...</p>;  // Display a loading message
     if (categoriesError) return <p>Error: {categoriesError.message}</p>;

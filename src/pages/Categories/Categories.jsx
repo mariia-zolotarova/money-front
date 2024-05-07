@@ -3,6 +3,7 @@ import {gql, useMutation, useQuery} from "@apollo/client";
 import React, {useState} from "react";
 import ModalNewCategory from "./ModalNewCategory";
 import {getBaseUrl} from "../../index";
+import {Navigate} from "react-router-dom";
 
 const GET_CATEGORIES = gql`
     query getCategories($pagination: PaginationArg){
@@ -64,6 +65,10 @@ export default function Categories() {
 
     if (loading) return <p>Loading...</p>;  // Display a loading message
     if (error) return <p>Error: {error.message}</p>;
+
+    if (localStorage.length === 0) {
+        return <Navigate to="/authorization" replace />
+    }
 
     const categories = data?.categories?.data;
 
