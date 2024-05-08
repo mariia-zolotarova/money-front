@@ -6,8 +6,8 @@ import {gql, useQuery} from "@apollo/client";
 import {Navigate} from "react-router-dom";
 
 const GET_INCOMES = gql`
-    query getIncomes($pagination: PaginationArg){
-        incomes(pagination: $pagination){
+    query getIncomes($pagination: PaginationArg, $filters: IncomeFiltersInput){
+        incomes(pagination: $pagination, filters: $filters){
             data{
                 id
                 attributes{
@@ -19,8 +19,8 @@ const GET_INCOMES = gql`
 `;
 
 const GET_EXPENSES = gql`
-    query getExpenses($pagination: PaginationArg){
-        expenses(pagination: $pagination){
+    query getExpenses($pagination: PaginationArg, $filters: ExpenseFiltersInput){
+        expenses(pagination: $pagination, filters: $filters){
             data{
                 id
                 attributes{
@@ -61,11 +61,22 @@ const GET_CATEGORIES = gql`
 
 export default function Charts({incomes, expenses}) {
     let groupedExpenses = [];
+    let person={}, personId=-1
+
+    if(localStorage.length>0){
+        person =  JSON.parse(localStorage.getItem("existPerson"));
+        personId = Number(person.id)
+    }
 
     const {loading: incomesLoading, error: incomesError, data: incomesData} = useQuery(GET_INCOMES, {
         variables: {
             pagination: {
                 pageSize: 1000
+            },
+            filters:{
+                person_Id:{
+                    eq:personId
+                }
             }
         }
     });
@@ -74,6 +85,11 @@ export default function Charts({incomes, expenses}) {
         variables: {
             pagination: {
                 pageSize: 1000
+            },
+            filters:{
+                person_Id:{
+                    eq:personId
+                }
             }
         }
     });

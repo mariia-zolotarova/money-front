@@ -1,12 +1,12 @@
 import './history.scss'
-import {Button, Table} from "antd";
+import {Table} from "antd";
 import {gql, useQuery} from "@apollo/client";
 import React from "react";
 import {Navigate} from "react-router-dom";
 
 const GET_INCOMES = gql`
-    query getIncomes($pagination: PaginationArg){
-        incomes(pagination: $pagination){
+    query getIncomes($pagination: PaginationArg, $filters: IncomeFiltersInput){
+        incomes(pagination: $pagination, filters: $filters){
             data{
                 id
                 attributes{
@@ -18,8 +18,8 @@ const GET_INCOMES = gql`
 `;
 
 const GET_EXPENSES = gql`
-    query getExpenses($pagination: PaginationArg){
-        expenses(pagination: $pagination){
+    query getExpenses($pagination: PaginationArg, $filters: ExpenseFiltersInput){
+        expenses(pagination: $pagination, filters: $filters){
             data{
                 id
                 attributes{
@@ -59,10 +59,22 @@ const GET_CATEGORIES = gql`
 `;
 
 export default function History() {
+    let person={}, personId=-1
+
+    if(localStorage.length>0){
+        person =  JSON.parse(localStorage.getItem("existPerson"));
+        personId = Number(person.id)
+    }
+
     const {loading: incomesLoading, error: incomesError, data: incomesData} = useQuery(GET_INCOMES, {
         variables: {
             pagination: {
                 pageSize: 1000
+            },
+            filters:{
+                person_Id:{
+                    eq:personId
+                }
             }
         }
     });
@@ -71,6 +83,11 @@ export default function History() {
         variables: {
             pagination: {
                 pageSize: 1000
+            },
+            filters:{
+                person_Id:{
+                    eq:personId
+                }
             }
         }
     });
@@ -184,7 +201,6 @@ console.log(joinedExpensesIncomes)
                     return "white";
                 }
             }}/>
-
             {/*<Table className="expenses__table" dataSource={joinedExpensesIncomes} columns={columnsExpenses} rowKey={'id'}  rowClassName={(record) => (record.categoryName === 'Income' ? "green" : "red")}/>*/}
         </div>
 
