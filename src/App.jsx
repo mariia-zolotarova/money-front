@@ -12,7 +12,7 @@ import Authorization from "./pages/Authorization/Authorization";
 
 export default function App() {
     return (
-        <div className="wrapper">
+        <>
             <Header></Header>
             <div className="content">
                 <Routes>
@@ -28,7 +28,7 @@ export default function App() {
             </div>
             <Footer></Footer>
 
-        </div>
+        </>
     );
 }
 
