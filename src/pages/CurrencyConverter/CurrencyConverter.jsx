@@ -80,9 +80,7 @@ export default function CurrencyConverter() {
     const items = [
         {
             key: 'item',
-            label:(dropItem) => {
-                return <h4>{dropItem}</h4>
-            }
+            label: dropItem ? <h4>{dropItem}</h4> : null,
         },
     ];
 
