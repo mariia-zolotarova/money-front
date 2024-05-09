@@ -2,5 +2,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.converter__balance,
+{
+  padding: 20px;
+}
+
+.converter__input{
+  margin: 20px;
+  width: 20%;
+}
+
+.converter__heading{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
