@@ -8,6 +8,7 @@ import Person from "./pages/Person/Person";
 import Footer from "./components/Footer/Footer";
 import Registration from "./pages/Registration/Registration";
 import Authorization from "./pages/Authorization/Authorization";
+import CurrencyConverter from "./pages/CurrencyConverter/CurrencyConverter";
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
                     <Route path='/person' element={<Person/>}></Route>
                     <Route path='/registration' element={<Registration/>}></Route>
                     <Route path='/authorization' element={<Authorization/>}></Route>
+                    <Route path='/converter' element={<CurrencyConverter/>}></Route>
                     <Route path="*" element={<h1>404</h1>}></Route>
                 </Routes>
             </div>

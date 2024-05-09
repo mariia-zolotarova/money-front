@@ -3,3 +3,16 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+html, body, #root {
+  height: 100%
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+}

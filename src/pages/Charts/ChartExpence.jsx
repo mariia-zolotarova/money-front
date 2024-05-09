@@ -31,10 +31,9 @@ export default function ChartExpense({expenses}) {
         series1.data.setAll(expenses);
 
         let label = series1.children.push(am5.Label.new(root, {
-             // text: "Hello world",
             text: expenses.reduce((partialSum, a) => partialSum + a.amount, 0).toFixed(2),
             // text: "Expenses",
-            fontSize: 40,
+            fontSize: 30,
             centerX: am5.percent(50),
             centerY: am5.percent(50)
         }));

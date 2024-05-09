@@ -27,8 +27,6 @@ const GET_PEOPLE = gql`
         }}
 `;
 
-
-
 const items = [
     {
         key: "home",
@@ -45,12 +43,21 @@ const items = [
     {
         key: "history",
         label:  <Link to="/history">History 🗒️</Link>,
-    }]
-
-
-
+    },
+    {
+        key:"converter",
+        label: <Link to="/converter">Currency converter 💰</Link>
+    }
+]
 
 const App = () => {
+    let person={}, personId=-1
+
+    if(localStorage.length>0){
+        person =  JSON.parse(localStorage.getItem("existPerson"));
+        personId = Number(person.id)
+    }
+
     const {loading, error, data} = useQuery(GET_PEOPLE, {
         variables: {
             pagination: {
@@ -58,7 +65,7 @@ const App = () => {
             },
             filters:{
                 id:{
-                    eq:1
+                    eq:personId
                 }
             }
         },

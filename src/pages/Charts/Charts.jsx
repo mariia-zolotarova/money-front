@@ -127,11 +127,9 @@ export default function Charts({incomes, expenses}) {
     };
 
     expense?.forEach((expense) => {
-        // const category = expense.attributes.category_Id;
-        const category_Id = expense.attributes.category_Id; // change category to category_Id
+        const category_Id = expense.attributes.category_Id;
         const categoryName = getCategoryName(category_Id, categories);
         const amount = parseFloat(expense.attributes.amount);
-
 
         let currentExpense = groupedExpenses.find(x => x.category === category_Id);
 
