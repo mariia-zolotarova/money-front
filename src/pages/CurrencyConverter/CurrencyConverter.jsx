@@ -1,9 +1,11 @@
 import "./currencyConverter.scss"
 import useFetch from "react-fetch-hook";
 import React from 'react';
-import {Table, InputNumber, Dropdown, Space } from 'antd';
+import {Table, InputNumber, Dropdown, Space, Button} from 'antd';
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import {gql, useQuery} from "@apollo/client";
+import { Select } from 'antd';
+import {Link} from "react-router-dom";
 
 const FETCH_BALANCE_QUERY = gql`
     query GetBalances($filters: BalanceFiltersInput) {
@@ -76,13 +78,19 @@ export default function CurrencyConverter() {
         console.log('changed', value);
     };
 
-    const dropItem = data?data?.rate:null;
-    const items = [
-        {
-            key: 'item',
-            label: dropItem ? <h4>{dropItem}</h4> : null,
-        },
-    ];
+    console.log(data)
+    const newConvert = [...new Set(data.data.map(x => x.pair.split('_')).flat())];
+
+    const itemsFrom = newConvert.map(itemFrom => ({
+        value: itemFrom,
+        label: itemFrom,
+    }));
+
+    const itemsTo = newConvert.map(itemTo => ({
+        value: itemTo,
+        label: itemTo,
+    }));
+
 
     return (
 
@@ -94,17 +102,29 @@ export default function CurrencyConverter() {
                     <h2 className="converter__balance-sum">{Math.round(balance).toLocaleString()} ₴</h2>
                 </div>
 
-                <Dropdown
-                    menu={{
-                        items,
-                    }}
-                >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                            Hover me <DownOutlined />
-                        </Space>
-                    </a>
-                </Dropdown>
+                <Select
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="Search to Select"
+                    optionFilterProp="children"
+                    filterOption={(input, option) => (option?.label ?? '').includes(input.toUpperCase())}
+                    filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                    }
+                    options={itemsFrom}
+                />
+
+                <Select
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="Search to Select"
+                    optionFilterProp="children"
+                    filterOption={(input, option) => (option?.label ?? '').includes(input.toUpperCase())}
+                    filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                    }
+                    options={itemsTo}
+                />
 
                 <InputNumber className="converter__input"
                              placeholder="Input a number"
