@@ -26,3 +26,14 @@
 .user__row-button{
   background-color: var(--red);
 }
+
+.header__right{
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.header__switch{
+  border: 1px solid white;
+}

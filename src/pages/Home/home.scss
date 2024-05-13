@@ -28,16 +28,16 @@
 }
 
 .expenses__card-selected .expenses__img-container{
-  background-color: #39f539;
-  border: 2px solid #108503;
+  background-color: var(--green-5);
+  border: 2px solid var(--Base-Black);
 }
 
 .expenses__card-selected .expenses__name{
-  color: #108503;
+  color: var(--green-7);
 }
 
 .expenses__img-container{
-  background-color: #e1fce1;
+  background-color: var(--light-green);
   border: 2px solid black;
   border-radius: 100%;
   cursor: pointer;
