@@ -92,25 +92,46 @@ export default function CurrencyConverter() {
         label: itemTo,
     }));
 
+    const convertToUsd = (value) => {
+        console.log(selectFrom)
+        const rate = selectFrom === 'USD' ? 1 : data?.data.find(x => x.pair === `${selectFrom}_USD`).rate
+        return (1 / rate) * value;
+    }
+
+    const convertFromUsd = (value) => {
+        console.log(selectTo)
+        const rate = selectTo === 'USD' ? 1 : data?.data.find(x => x.pair === `${selectTo}_USD`).rate
+        return (1 / rate) * value;
+    }
+
     const onChangeFrom = (value) => {
         console.log('changed', value);
         setInputFrom(value);
 
-        if (selectTo !== 'USD') {
-            const rateUSD = data?.data.find(x => x.pair === `${selectFrom}_USD`).rate
+        if (selectFrom === selectTo) {
+            setInputTo(value);
+        } else if (selectTo !== 'USD') {
             const rateTo = data?.data.find(x => x.pair === `${selectTo}_USD`).rate
-            setInputTo(Math.round(((rateTo * value / rateUSD * value)) * 100) / 100)
+            const valueInUsd = convertToUsd(value);
+            setInputTo(valueInUsd * rateTo);
         } else {
-            const rate = data?.data.find(x => x.pair === `${selectFrom}_${selectTo}`).rate
-            setInputTo(Math.round((1 / rate * value) * 100) / 100)
+            setInputTo(Math.round((convertToUsd(value)) * 100) / 100)
         }
     };
 
     const onChangeTo = (value) => {
         console.log('changed', value);
         setInputTo(value);
-        const rate = data?.data.find(x => x.pair === `${selectTo}_${selectFrom}`).rate
-        setInputFrom(Math.round((1 / rate * value) * 100) / 100)
+
+        if (selectTo === selectFrom) {
+            setInputFrom(value);
+        } else if (selectFrom !== 'USD') {
+            const rateFrom = data?.data.find(x => x.pair === `${selectFrom}_USD`).rate
+            const valueInUsd = convertFromUsd(value);
+            setInputFrom(valueInUsd * rateFrom);
+        } else {
+            setInputFrom(Math.round((convertFromUsd(value)) * 100) / 100)
+        }
     };
 
     const onSelectFrom = (currency) => {
