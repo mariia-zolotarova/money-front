@@ -104,10 +104,7 @@ export default function CurrencyConverter() {
         return (1 / rate) * value;
     }
 
-    const onChangeFrom = (value) => {
-        console.log('changed', value);
-        setInputFrom(value);
-
+    const convertFrom = (value, selectTo, selectFrom)=>{
         if (selectFrom === selectTo) {
             setInputTo(value);
         } else if (selectTo !== 'USD') {
@@ -117,12 +114,10 @@ export default function CurrencyConverter() {
         } else {
             setInputTo(Math.round((convertToUsd(value)) * 100) / 100)
         }
-    };
+        return value;
+    }
 
-    const onChangeTo = (value) => {
-        console.log('changed', value);
-        setInputTo(value);
-
+    const convertTo=(value, selectTo, selectFrom)=>{
         if (selectTo === selectFrom) {
             setInputFrom(value);
         } else if (selectFrom !== 'USD') {
@@ -132,16 +127,31 @@ export default function CurrencyConverter() {
         } else {
             setInputFrom(Math.round((convertFromUsd(value)) * 100) / 100)
         }
+        return value;
+    }
+
+    const onChangeFrom = (value) => {
+        console.log('changed', value);
+        setInputFrom(value);
+        convertFrom(value, selectTo, selectFrom);
+    };
+
+    const onChangeTo = (value) => {
+        console.log('changed', value);
+        setInputTo(value);
+        convertTo(value, selectTo, selectFrom);
     };
 
     const onSelectFrom = (currency) => {
         console.log(currency);
         setSelectFrom(currency);
+        convertFrom(inputFrom, selectTo, currency)
     };
 
     const onSelectTo = (currency) => {
         console.log(currency);
         setSelectTo(currency);
+        convertFrom(inputFrom, currency, selectFrom)
     };
 
 
