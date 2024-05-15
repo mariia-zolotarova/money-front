@@ -54,7 +54,7 @@ export default function Expenses({addExpense, createExpenses, expenses}) {
 
     expenses?.forEach((expense) => {
         // const category = expense.attributes.category_Id;
-        const category_Id = expense.attributes.category_Id; // change category to category_Id
+        const category_Id = expense.attributes.category_Id;
         const categoryName = getCategoryName(category_Id, categories);
         const amount = parseFloat(expense.attributes.amount);
 
@@ -94,7 +94,7 @@ export default function Expenses({addExpense, createExpenses, expenses}) {
                 key: category.id,
                 text: category.attributes.title,
                 value: category.id
-            })), // Use category names for filters
+            })),
             onFilter: (value, record) => record.category === value,
         },
     ];

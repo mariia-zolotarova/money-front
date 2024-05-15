@@ -165,7 +165,7 @@ export default function CurrencyConverter() {
             <div className="converter__currency">
 
                 <div className="converter__currency-from">
-                    <InputNumber className="converter__input-from"
+                    <InputNumber className="converter__input"
                                  placeholder="Input a number"
                                  maxLength={16}
                                  onChange={onChangeFrom}
@@ -173,6 +173,7 @@ export default function CurrencyConverter() {
                     />
 
                     <Select
+                        className="converter__select"
                         showSearch
                         style={{width: 200}}
                         placeholder="Search to Select"
@@ -189,13 +190,14 @@ export default function CurrencyConverter() {
 
 
                 <div className="converter__currency-to">
-                    <InputNumber className="converter__input-to"
+                    <InputNumber className="converter__input"
                                  placeholder="Input a number"
                                  maxLength={16}
                                  onChange={onChangeTo}
                                  value={inputTo}
                     />
                     <Select
+                        className="converter__select"
                         showSearch
                         style={{width: 200}}
                         placeholder="Search to Select"

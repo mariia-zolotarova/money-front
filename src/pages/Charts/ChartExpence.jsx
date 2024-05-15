@@ -19,13 +19,16 @@ export default function ChartExpense({expenses}) {
                 radius: am5.percent(60),
                 innerRadius: am5.percent(60)
             })
+        // am5percent.PieChart.new(root, {})
         );
+
 
         let series1 = chart.series.push(
             am5percent.PieSeries.new(root, {
                 name: "Expense",
                 valueField: "amount",
-                categoryField: "categoryName"
+                categoryField: "categoryName",
+                alignLabels: false
             })
         );
         series1.data.setAll(expenses);
@@ -38,6 +41,18 @@ export default function ChartExpense({expenses}) {
             centerY: am5.percent(50)
         }));
 
+        // series1.labels.template.set("forceHidden", true);
+
+        series1.labels.template.setAll({
+            fontSize: 14,
+            text: "{categoryName}",
+            textType: "circular",
+            inside: false,
+            radius: 10,
+            fill: am5.color('#000')
+        });
+
+        // series1.ticks.template.set("forceHidden", true);
         // var legend = chart.children.push(am5.Legend.new(root, {
         //     centerX: am5.percent(45),
         //     centerY: am5.percent(10),
@@ -46,7 +61,6 @@ export default function ChartExpense({expenses}) {
         //     layout: root.horizontalLayout
         // }));
         // legend.data.setAll(series1.dataItems);
-
 
         return () => {
             root.dispose();
