@@ -47,6 +47,7 @@
 .footer-socials-side {
   display: flex;
   flex-direction: column;
+  max-width: 200px;
   @media (max-width: 600px) {
     justify-content: center;
     align-items: center;
@@ -62,6 +63,7 @@
 
 .footer__socials-beetroot {
   width: 90px;
+  max-height: 50px;
   background-color: var(--Base-White);
   border-radius: 15px;
 }
