@@ -41,4 +41,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.history__csv{
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: var(--Base-Black);
+  padding: 5px 10px;
+  border: 1px solid var(--Base-Black);
+  border-radius: 15px;
+  background-color: var(--light-green);
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  @media (max-width: 600px) {
+    position: relative;
+    top: 0px;
+    right: 0px;
+  }
+}
+
+.history__csv:hover{
+  background-color: var(--button-color);
+  animation-name: example;
+  animation-duration: 1s;
+}
+
+@keyframes example {
+  from {background-color: var(--light-green);}
+  to {background-color: var(--button-color);}
 }

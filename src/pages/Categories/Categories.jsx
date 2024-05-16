@@ -63,7 +63,7 @@ export default function Categories() {
         }
     });
 
-    if (loading) return <p>Loading...</p>;  // Display a loading message
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     if (localStorage.length === 0) {

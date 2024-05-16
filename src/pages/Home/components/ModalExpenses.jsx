@@ -4,7 +4,6 @@ import {InputNumber, Select} from 'antd';
 import {gql, useQuery} from "@apollo/client";
 import {getBaseUrl} from "../../../index";
 
-
 const { Option } = Select;
 
 const GET_CATEGORIES = gql`
@@ -42,7 +41,7 @@ export default function ModalExpenses({setIsModalOpen, isModalOpen, onAddExpense
         }
     });
 
-    if (loading) return <p>Loading...</p>;  // Display a loading message
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const categories = data?.categories?.data;

@@ -64,7 +64,6 @@ export default function Registration(){
                 autoComplete="off"
             >
                 <Form.Item
-                    // label="Username"
                     name="username"
                     rules={[
                         {
@@ -78,7 +77,6 @@ export default function Registration(){
 
                 <Form.Item
                     name="email"
-                    // label="E-mail"
                     rules={[
                         {
                             type: 'email',
@@ -94,7 +92,6 @@ export default function Registration(){
                 </Form.Item>
 
                 <Form.Item
-                    // label="Password"
                     name="password"
                     rules={[
                         {
@@ -104,7 +101,6 @@ export default function Registration(){
                     ]}
                 >
                     <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}  type="password" placeholder="Password" value={inputPasswordValue} onChange={(e) => setPasswordInputValue(e.target.value)}/>
-
 
                 </Form.Item>
 

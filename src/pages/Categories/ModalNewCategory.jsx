@@ -1,7 +1,6 @@
 import {Modal } from 'antd';
 import React, { useState } from 'react';
-import {Input, Select} from 'antd';
-const { Option } = Select;
+import {Input} from 'antd';
 
 export default function ModalNewCategory({setIsModalOpen, isModalOpen, newCategories}){
 

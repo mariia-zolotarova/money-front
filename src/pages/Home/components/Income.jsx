@@ -1,8 +1,7 @@
-import Date from './Date'
 import {Button} from "antd";
 import React, {useState} from "react";
 import ModalIncome from "./ModalIncome";
-import { Space, Table, Tag } from 'antd';
+import {Table} from 'antd';
 
 import ChartIncome from '../../Charts/ChartIncome';
 export default function Income({ addIncome, createIncomes, incomes }){
@@ -25,16 +24,14 @@ export default function Income({ addIncome, createIncomes, incomes }){
             render: (publishedAt) => {
                 return <div>{publishedAt.replace(/T.*/, '')}</div>
             },
-
         },
     ];
 
     return(
-
         <div className="income__container">
             <Button className="income__button" type="primary" onClick={() => setIsModalOpen(true)}>Add💰</Button>
             <div className="income__row">
-            <ChartIncome incomes={incomes}/>
+            <ChartIncome className="income__xychart" incomes={incomes}/>
             <Table className="income__table" dataSource={incomes} columns={columns} rowKey={'id'} />;</div>
             <ModalIncome isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onAddIncome={addIncome} onCreateIncome={createIncomes}/>
         </div>

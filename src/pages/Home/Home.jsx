@@ -185,9 +185,6 @@ export default function Home() {
     const incomes = incomesData?.incomes?.data
     const expenses = expensesData?.expenses?.data
 
-    // console.log(expenses)
-    // console.log("person id:", person.id)
-
    const onChange = (key) => {
       console.log(key);
    };
@@ -283,7 +280,6 @@ export default function Home() {
                 <h2 className="balance balance__sum">{Math.round(balance).toLocaleString()} ₴</h2>
             </div>
             <Row className="date__row" size={12}>
-                {/*<DatePicker size={size} onChange={onChangeDay} />*/}
                 <RangePicker size={size} onChange={onChangeRange}/>
             </Row>
            <div className="tabs tabs__container">

@@ -42,7 +42,7 @@ export default function Expenses({addExpense, createExpenses, expenses}) {
         }
     });
 
-    if (loading) return <p>Loading...</p>;  // Display a loading message
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const categories = data?.categories?.data;
@@ -53,14 +53,10 @@ export default function Expenses({addExpense, createExpenses, expenses}) {
     };
 
     expenses?.forEach((expense) => {
-        // const category = expense.attributes.category_Id;
         const category_Id = expense.attributes.category_Id;
         const categoryName = getCategoryName(category_Id, categories);
         const amount = parseFloat(expense.attributes.amount);
-
-
         let currentExpense = groupedExpenses.find(x => x.category === category_Id);
-
         if (currentExpense) {
             currentExpense.amount += amount;
         } else {
@@ -98,11 +94,6 @@ export default function Expenses({addExpense, createExpenses, expenses}) {
             onFilter: (value, record) => record.category === value,
         },
     ];
-
-    // console.log("Categories:", categories);
-    // console.log("Expenses:", expenses);
-    // console.log("Grouped Expenses:", groupedExpenses);
-
 
     return (
         <div className="expenses__container">

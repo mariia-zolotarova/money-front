@@ -3,8 +3,8 @@ import React from 'react';
 import {Header} from "antd/es/layout/layout";
 import {Button, Menu} from "antd";
 import {Link} from 'react-router-dom';
-import { Dropdown, Switch } from 'antd';
-import {UserOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
+import { Dropdown} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 import {gql, useQuery} from "@apollo/client";
 
 const GET_PEOPLE = gql`
@@ -124,18 +124,13 @@ const App = () => {
             />
 
             <div className="header__right">
-                {/*<Switch className="header__switch"*/}
-                {/*    checkedChildren={<SunOutlined />}*/}
-                {/*    unCheckedChildren={<MoonOutlined />}*/}
-                {/*    defaultChecked*/}
-                {/*/>*/}
+
             <Dropdown
                 menu={{
                     items: users,
                 }}
                 placement="topRight"
             >
-                {/*<Button>topRight</Button>*/}
                 <UserOutlined style={{ fontSize: '20px', color: '#FFF', cursor:'pointer' }}/>
             </Dropdown>
             </div>

@@ -3,6 +3,7 @@ import {Table} from "antd";
 import {gql, useQuery} from "@apollo/client";
 import React from "react";
 import {Navigate} from "react-router-dom";
+import {CSVLink} from "react-csv"
 
 const GET_INCOMES = gql`
     query getIncomes($pagination: PaginationArg, $filters: IncomeFiltersInput){
@@ -59,10 +60,10 @@ const GET_CATEGORIES = gql`
 `;
 
 export default function History() {
-    let person={}, personId=-1
+    let person = {}, personId = -1
 
-    if(localStorage.length>0){
-        person =  JSON.parse(localStorage.getItem("existPerson"));
+    if (localStorage.length > 0) {
+        person = JSON.parse(localStorage.getItem("existPerson"));
         personId = Number(person.id)
     }
 
@@ -71,9 +72,9 @@ export default function History() {
             pagination: {
                 pageSize: 1000
             },
-            filters:{
-                person_Id:{
-                    eq:personId
+            filters: {
+                person_Id: {
+                    eq: personId
                 }
             }
         }
@@ -84,15 +85,15 @@ export default function History() {
             pagination: {
                 pageSize: 1000
             },
-            filters:{
-                person_Id:{
-                    eq:personId
+            filters: {
+                person_Id: {
+                    eq: personId
                 }
             }
         }
     });
 
-    const {loading: categoriesLoading, error: categoriesError, data :categoriesData} = useQuery(GET_CATEGORIES, {
+    const {loading: categoriesLoading, error: categoriesError, data: categoriesData} = useQuery(GET_CATEGORIES, {
         variables: {
             pagination: {
                 pageSize: 20
@@ -101,10 +102,10 @@ export default function History() {
     });
 
     if (localStorage.length === 0) {
-        return <Navigate to="/authorization" replace />
+        return <Navigate to="/authorization" replace/>
     }
 
-    if (categoriesLoading) return <p>Loading...</p>;  // Display a loading message
+    if (categoriesLoading) return <p>Loading...</p>;
     if (categoriesError) return <p>Error: {categoriesError.message}</p>;
 
     if (incomesLoading) return <p>Loading...</p>;
@@ -132,14 +133,6 @@ export default function History() {
             },
             sorter: (a, b) => a.amount - b.amount
         },
-        // {
-        //     title: 'Currency',
-        //     dataIndex: ['currency'],
-        //     key: 'currency',
-        //     render: (currency) => {
-        //         return <p>{currency}</p>
-        //     },
-        // },
         {
             title: 'Category',
             dataIndex: ['categoryName'],
@@ -151,7 +144,7 @@ export default function History() {
                 key: category.attributes.title,
                 text: category.attributes.title,
                 value: category.attributes.title
-            })), // Use category names for filters
+            })),
             onFilter: (value, record) => record.categoryName === value,
         },
         {
@@ -161,7 +154,6 @@ export default function History() {
             render: (publishedAt) => {
                 return <div>{publishedAt?.replace(/T.*/, '')}</div>
             },
-
         },
     ];
 
@@ -172,7 +164,6 @@ export default function History() {
             return {
                 id: `expense-${expense.id}`,
                 amount: expense.attributes.amount,
-                // currency: expense.attributes.currency,
                 categoryName: getCategoryName(expense.attributes.category_Id, categories),
                 publishedAt: expense.attributes.publishedAt
             }
@@ -181,28 +172,32 @@ export default function History() {
             return {
                 id: `income-${income.id}`,
                 amount: income.attributes.balance,
-                // currency: 'UAH',
                 categoryName: 'Income',
                 publishedAt: income.attributes.publishedAt
             }
         }))
         joinedExpensesIncomes = joinedExpensesIncomes.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
     }
-console.log(joinedExpensesIncomes)
+    console.log(joinedExpensesIncomes)
     return (<div className="history__row">
         <div className="container history__container">
             <h2 className="history__title">History</h2>
+
+            <CSVLink
+                filename={"Expense_Table.csv"}
+                data={joinedExpensesIncomes}
+                className="history__csv"
+            >
+                Export to CSV 📄
+            </CSVLink>
             <Table className="history__table" dataSource={joinedExpensesIncomes} columns={columnsExpenses} rowKey={'id'}
                    rowClassName={(record, index) => {
-                if (record.categoryName === 'Income') {
-                    return "green";
-                }
-                else {
-                    return "white";
-                }
-            }}/>
-            {/*<Table className="expenses__table" dataSource={joinedExpensesIncomes} columns={columnsExpenses} rowKey={'id'}  rowClassName={(record) => (record.categoryName === 'Income' ? "green" : "red")}/>*/}
+                       if (record.categoryName === 'Income') {
+                           return "green";
+                       } else {
+                           return "white";
+                       }
+                   }}/>
         </div>
-
     </div>);
 }

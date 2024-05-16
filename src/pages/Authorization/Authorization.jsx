@@ -30,11 +30,6 @@ export default function Authorization() {
 
     const [isAuthFailed, setIsAuthFailed] = useState();
     const [getPerson, {loading}] = useLazyQuery(GET_PEOPLE);
-    // const [existPerson, setExistPerson] = useState([]);
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('existPerson', JSON.stringify(existPerson));
-    // }, [existPerson]);
 
     const onFinish = async (values) => {
         const {data} = await getPerson({
@@ -66,7 +61,6 @@ export default function Authorization() {
             navigate('/');
         } else {
             setIsAuthFailed(true);
-            // Create new state IsAuthFailed. Set IsAuthFailedSet(true).
         }
     };
     const onFinishFailed = (errorInfo) => {

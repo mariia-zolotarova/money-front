@@ -1,11 +1,9 @@
 import "./currencyConverter.scss"
 import useFetch from "react-fetch-hook";
 import React, {useState} from 'react';
-import {Table, InputNumber, Dropdown, Space, Button} from 'antd';
-import {DownOutlined, SmileOutlined} from '@ant-design/icons';
+import {Table, InputNumber} from 'antd';
 import {gql, useQuery} from "@apollo/client";
 import {Select} from 'antd';
-import {Link} from "react-router-dom";
 
 const FETCH_BALANCE_QUERY = gql`
     query GetBalances($filters: BalanceFiltersInput) {
@@ -19,7 +17,6 @@ const FETCH_BALANCE_QUERY = gql`
         }
     }
 `;
-
 
 export default function CurrencyConverter() {
     const [inputFrom, setInputFrom] = useState(0);
@@ -37,7 +34,7 @@ export default function CurrencyConverter() {
         data: balanceData,
         loading: balanceLoading,
         error: balanceError,
-        refetch: refetchBalance
+        // refetch: refetchBalance
     } = useQuery(FETCH_BALANCE_QUERY, {
         variables: {
             filters: {
