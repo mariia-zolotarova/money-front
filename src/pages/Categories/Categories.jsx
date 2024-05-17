@@ -87,8 +87,6 @@ export default function Categories() {
         await refetch();
     }
 
-    console.log(categories)
-
     return (
         <div className="container category__container">
             <h1 className="category__title">Categories</h1>

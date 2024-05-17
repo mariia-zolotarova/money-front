@@ -75,8 +75,6 @@ export default function CurrencyConverter() {
         },
     ];
 
-    console.log(data?.data)
-
     const newConvert = [...new Set(data.data.map(x => x.pair.split('_')).flat())];
 
     const itemsFrom = newConvert.map(itemFrom => ({
@@ -90,13 +88,11 @@ export default function CurrencyConverter() {
     }));
 
     const convertToUsd = (value) => {
-        console.log(selectFrom)
         const rate = selectFrom === 'USD' ? 1 : data?.data.find(x => x.pair === `${selectFrom}_USD`).rate
         return (1 / rate) * value;
     }
 
     const convertFromUsd = (value) => {
-        console.log(selectTo)
         const rate = selectTo === 'USD' ? 1 : data?.data.find(x => x.pair === `${selectTo}_USD`).rate
         return (1 / rate) * value;
     }
@@ -128,25 +124,21 @@ export default function CurrencyConverter() {
     }
 
     const onChangeFrom = (value) => {
-        console.log('changed', value);
         setInputFrom(value);
         convertFrom(value, selectTo, selectFrom);
     };
 
     const onChangeTo = (value) => {
-        console.log('changed', value);
         setInputTo(value);
         convertTo(value, selectTo, selectFrom);
     };
 
     const onSelectFrom = (currency) => {
-        console.log(currency);
         setSelectFrom(currency);
         convertFrom(inputFrom, selectTo, currency)
     };
 
     const onSelectTo = (currency) => {
-        console.log(currency);
         setSelectTo(currency);
         convertFrom(inputFrom, currency, selectFrom)
     };

@@ -20,9 +20,9 @@ const CREATE_PERSON_MUTATION= gql`
     }
 `;
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
+// const onFinish = (values) => {
+//     console.log('Success:', values);
+// };
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };

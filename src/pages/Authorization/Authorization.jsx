@@ -53,8 +53,6 @@ export default function Authorization() {
                 }
             }
         })
-        // createPerson();
-        console.log("success", data)
 
         if (data?.people?.data?.length > 0) {
             localStorage.setItem('existPerson', JSON.stringify(data.people.data[0]));

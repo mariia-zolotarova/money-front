@@ -178,7 +178,7 @@ export default function History() {
         }))
         joinedExpensesIncomes = joinedExpensesIncomes.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
     }
-    console.log(joinedExpensesIncomes)
+
     return (<div className="history__row">
         <div className="container history__container">
             <h2 className="history__title">History</h2>

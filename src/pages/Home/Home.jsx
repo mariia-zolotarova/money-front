@@ -260,7 +260,6 @@ export default function Home() {
 
 
    const onChangeRange = (startDay, endDay)=>{
-       console.log(startDay)
        const startDate = new Date(startDay[0])
        const endDate = new Date(endDay[1])
        startDate.setUTCDate(new Date(startDay[0]).getDate())
@@ -269,8 +268,6 @@ export default function Home() {
        endDate.setUTCHours(23, 59, 59);
        setStartDateFilter(startDate) // start of the day
        setEndDateFilter(endDate) // end of the day
-       console.log(startDate);
-       console.log(endDate);
    }
 
     return (
