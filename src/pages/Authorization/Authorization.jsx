@@ -133,9 +133,8 @@ export default function Authorization() {
 
                 <Form.Item>
                     <div className="authorization__register">
-                    <p>Don't have an account yet?</p>
                         <Button type="link" htmlType="button" loading={loading}>
-                            <Link to="/registration">Create one.</Link>
+                            <Link to="/registration">Don't have an account yet?</Link>
                         </Button>
                     </div>
                 </Form.Item>

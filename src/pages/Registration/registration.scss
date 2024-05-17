@@ -1,7 +1,11 @@
 .registration__form{
-  max-width: 600px;
   display: flex;
   flex-direction: column;
-  margin: 30px;
+  margin: 30px 60px;
+  align-items: center;
+  justify-content: center;
 }
 
+.registration__input{
+  width: 350px;
+}

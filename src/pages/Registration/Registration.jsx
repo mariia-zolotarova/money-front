@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import {gql, useMutation} from "@apollo/client";
+import {Link} from "react-router-dom";
 
 const CREATE_PERSON_MUTATION= gql`
     mutation createPerson($data: PersonInput!) {
@@ -53,8 +54,8 @@ export default function Registration(){
                 className="registration__form"
                 name="basic"
                 wrapperCol={{
-                    offset: 8,
-                    span: 16,
+                    // offset: 8,
+                    // span: 16,
                 }}
                 initialValues={{
                     remember: true,
@@ -72,7 +73,7 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" value={inputNameValue} onChange={(e) => setNameInputValue(e.target.value)}/>
+                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" value={inputNameValue} onChange={(e) => setNameInputValue(e.target.value)}/>
                 </Form.Item>
 
                 <Form.Item
@@ -88,7 +89,7 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="E-mail" value={inputEmailValue} onChange={(e) => setEmailInputValue(e.target.value)}/>
+                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="E-mail" value={inputEmailValue} onChange={(e) => setEmailInputValue(e.target.value)}/>
                 </Form.Item>
 
                 <Form.Item
@@ -100,7 +101,7 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input.Password prefix={<LockOutlined className="site-form-item-icon"/>}  type="password" placeholder="Password" value={inputPasswordValue} onChange={(e) => setPasswordInputValue(e.target.value)}/>
+                    <Input.Password className="registration__input" prefix={<LockOutlined className="site-form-item-icon"/>}  type="password" placeholder="Password" value={inputPasswordValue} onChange={(e) => setPasswordInputValue(e.target.value)}/>
 
                 </Form.Item>
 
@@ -108,8 +109,8 @@ export default function Registration(){
                     name="remember"
                     valuePropName="checked"
                     wrapperCol={{
-                        offset: 8,
-                        span: 16,
+                        // offset: 8,
+                        // span: 16,
                     }}
                 >
                     <Checkbox>Remember me</Checkbox>
@@ -117,13 +118,21 @@ export default function Registration(){
 
                 <Form.Item
                     wrapperCol={{
-                        offset: 8,
-                        span: 16,
+                        // offset: 8,
+                        // span: 16,
                     }}
                 >
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
+                </Form.Item>
+
+                <Form.Item>
+                    <div className="authorization__register">
+                        <Button type="link" htmlType="button">
+                            <Link to="/authorization">Already have an account?</Link>
+                        </Button>
+                    </div>
                 </Form.Item>
             </Form>
         </div>

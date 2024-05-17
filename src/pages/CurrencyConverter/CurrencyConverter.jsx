@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {Table, InputNumber} from 'antd';
 import {gql, useQuery} from "@apollo/client";
 import {Select} from 'antd';
+import {Navigate} from "react-router-dom";
 
 const FETCH_BALANCE_QUERY = gql`
     query GetBalances($filters: BalanceFiltersInput) {
@@ -52,6 +53,10 @@ export default function CurrencyConverter() {
         error,
         data
     } = useFetch('https://www.binance.com/bapi/asset/v1/public/asset-service/product/currency')
+
+    if (localStorage.length === 0) {
+        return <Navigate to="/authorization" replace/>
+    }
 
     if (isLoading || balanceLoading) return <div>Loading...</div>;
 
