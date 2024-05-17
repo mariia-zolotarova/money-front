@@ -1,21 +1,30 @@
 import './charts.scss'
 import { useLayoutEffect } from 'react';
-import * as am5 from "@amcharts/amcharts5";
-import * as am5xy from "@amcharts/amcharts5/xy";
+
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import {Root} from "@amcharts/amcharts5"
+import {
+    XYChart,
+    ValueAxis,
+    AxisRendererY,
+    CategoryAxis,
+    AxisRendererX,
+    ColumnSeries,
+    XYCursor
+} from "@amcharts/amcharts5/xy"
 
 export default function ChartIncome({incomes}){
     useLayoutEffect(() => {
         if (!incomes) return;
 
-        let root = am5.Root.new("chartdiv-income");
+        let root = Root.new("chartdiv-income");
 
         root.setThemes([
             am5themes_Animated.new(root)
         ]);
 
         let chart = root.container.children.push(
-            am5xy.XYChart.new(root, {
+            XYChart.new(root, {
                 panY: false,
                 layout: root.verticalLayout
             })
@@ -28,21 +37,21 @@ export default function ChartIncome({incomes}){
         }));
 
         let yAxis = chart.yAxes.push(
-            am5xy.ValueAxis.new(root, {
-                renderer: am5xy.AxisRendererY.new(root, {})
+            ValueAxis.new(root, {
+                renderer: AxisRendererY.new(root, {})
             })
         );
 
         let xAxis = chart.xAxes.push(
-            am5xy.CategoryAxis.new(root, {
-                renderer: am5xy.AxisRendererX.new(root, {}),
+            CategoryAxis.new(root, {
+                renderer: AxisRendererX.new(root, {}),
                 categoryField: "category"
             })
         );
         xAxis.data.setAll(chartData);
 
         let series1 = chart.series.push(
-            am5xy.ColumnSeries.new(root, {
+            ColumnSeries.new(root, {
                 name: "Income",
                 xAxis: xAxis,
                 yAxis: yAxis,
@@ -52,7 +61,7 @@ export default function ChartIncome({incomes}){
         );
         series1.data.setAll(chartData);
 
-        chart.set("cursor", am5xy.XYCursor.new(root, {}));
+        chart.set("cursor", XYCursor.new(root, {}));
 
         return () => {
             root.dispose();

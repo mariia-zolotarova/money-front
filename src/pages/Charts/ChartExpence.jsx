@@ -1,29 +1,29 @@
 import './charts.scss';
 import { useLayoutEffect } from 'react';
-import * as am5 from "@amcharts/amcharts5";
-import * as am5percent from "@amcharts/amcharts5/percent";
+import {Root, percent, Label, color} from "@amcharts/amcharts5";
+import {PieChart, PieSeries} from "@amcharts/amcharts5/percent";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 export default function ChartExpense({expenses}) {
     useLayoutEffect(() => {
         if (!expenses) return;
 
-        let root = am5.Root.new("chartdiv-expense");
+        let root = Root.new("chartdiv-expense");
 
         root.setThemes([
             am5themes_Animated.new(root)
         ]);
 
         let chart = root.container.children.push(
-            am5percent.PieChart.new(root, {
-                radius: am5.percent(70),
-                innerRadius: am5.percent(60)
+            PieChart.new(root, {
+                radius: percent(70),
+                innerRadius: percent(60)
             })
         );
 
 
         let series1 = chart.series.push(
-            am5percent.PieSeries.new(root, {
+            PieSeries.new(root, {
                 name: "Expense",
                 valueField: "amount",
                 categoryField: "categoryName",
@@ -32,11 +32,11 @@ export default function ChartExpense({expenses}) {
         );
         series1.data.setAll(expenses);
 
-        let label = series1.children.push(am5.Label.new(root, {
+        series1.children.push(Label.new(root, {
             text: expenses.reduce((partialSum, a) => partialSum + a.amount, 0).toFixed(2),
             fontSize: 30,
-            centerX: am5.percent(50),
-            centerY: am5.percent(50)
+            centerX: percent(50),
+            centerY: percent(50)
         }));
 
         series1.labels.template.setAll({
@@ -45,7 +45,7 @@ export default function ChartExpense({expenses}) {
             textType: "circular",
             inside: false,
             radius: 10,
-            fill: am5.color('#000')
+            fill: color('#000')
         });
 
         return () => {
