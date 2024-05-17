@@ -27,7 +27,7 @@ export default function Footer() {
                 <a className="footer__teacher" href="https://www.linkedin.com/in/oleksandr-kolesnik/" target="_blank">
                     <p>Teacher Oleksandr Kolesnik</p></a>
                 <a href="https://beetroot.academy/" target="_blank">
-                    <img className="footer__socials-beetroot" src="./images/footer/beetroot.png" alt="beetroot" width="90px"/>
+                    <img className="footer__socials-beetroot" src="./images/footer/beetroot.png" alt="beetroot" width="90px" height="35px"/>
                 </a>
             </div>
         </div>
