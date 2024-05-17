@@ -1,11 +1,11 @@
 import './registration.scss'
 import React, {useState} from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {Button, Checkbox, Form, Input} from 'antd';
+import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {gql, useMutation} from "@apollo/client";
 import {Link} from "react-router-dom";
 
-const CREATE_PERSON_MUTATION= gql`
+const CREATE_PERSON_MUTATION = gql`
     mutation createPerson($data: PersonInput!) {
         createPerson(data: $data) {
             data {
@@ -21,20 +21,32 @@ const CREATE_PERSON_MUTATION= gql`
     }
 `;
 
-// const onFinish = (values) => {
-//     console.log('Success:', values);
-// };
+// const CREATE_BALANCE_MUTATION = gql`
+//     mutation createBalance($data: BalanceInput!) {
+//         createBalance(data: $data) {
+//             data {
+//                 id
+//                 attributes{
+//                     balance
+//                     person_Id
+//                     publishedAt
+//                 }
+//             }
+//         }
+//     }`;
+
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
 
-export default function Registration(){
+export default function Registration() {
     const [createPerson] = useMutation(CREATE_PERSON_MUTATION);
+    // const [createBalance] = useMutation(CREATE_BALANCE_MUTATION);
     const [inputNameValue, setNameInputValue] = useState();
     const [inputEmailValue, setEmailInputValue] = useState();
     const [inputPasswordValue, setPasswordInputValue] = useState();
 
-    const createPeople = async ()=>{
+    const createPeople = async () => {
         await createPerson(
             {
                 variables: {
@@ -44,19 +56,34 @@ export default function Registration(){
                         password: inputPasswordValue,
                         publishedAt: new Date().toISOString()
                     }
-                }}
+                }
+            }
         )
     }
 
-    return(
+    // const createBalances = async()=>{
+    //     await createBalance(
+    //         {
+    //             variables:{
+    //                 data:{
+    //                     balance: 0,
+    //                     personId: 111
+    //                 }
+    //             }
+    //         }
+    //     )
+    // }
+
+    // const onFinish = () => {
+    //     createPeople();
+    //     createBalances();
+    // };
+
+    return (
         <div className="container registration__container">
             <Form
                 className="registration__form"
                 name="basic"
-                wrapperCol={{
-                    // offset: 8,
-                    // span: 16,
-                }}
                 initialValues={{
                     remember: true,
                 }}
@@ -73,7 +100,9 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" value={inputNameValue} onChange={(e) => setNameInputValue(e.target.value)}/>
+                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon"/>}
+                           placeholder="Username" value={inputNameValue}
+                           onChange={(e) => setNameInputValue(e.target.value)}/>
                 </Form.Item>
 
                 <Form.Item
@@ -89,7 +118,9 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="E-mail" value={inputEmailValue} onChange={(e) => setEmailInputValue(e.target.value)}/>
+                    <Input className="registration__input" prefix={<UserOutlined className="site-form-item-icon"/>}
+                           placeholder="E-mail" value={inputEmailValue}
+                           onChange={(e) => setEmailInputValue(e.target.value)}/>
                 </Form.Item>
 
                 <Form.Item
@@ -101,26 +132,21 @@ export default function Registration(){
                         },
                     ]}
                 >
-                    <Input.Password className="registration__input" prefix={<LockOutlined className="site-form-item-icon"/>}  type="password" placeholder="Password" value={inputPasswordValue} onChange={(e) => setPasswordInputValue(e.target.value)}/>
+                    <Input.Password className="registration__input"
+                                    prefix={<LockOutlined className="site-form-item-icon"/>} type="password"
+                                    placeholder="Password" value={inputPasswordValue}
+                                    onChange={(e) => setPasswordInputValue(e.target.value)}/>
 
                 </Form.Item>
 
                 <Form.Item
                     name="remember"
                     valuePropName="checked"
-                    wrapperCol={{
-                        // offset: 8,
-                        // span: 16,
-                    }}
                 >
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
                 <Form.Item
-                    wrapperCol={{
-                        // offset: 8,
-                        // span: 16,
-                    }}
                 >
                     <Button type="primary" htmlType="submit">
                         Submit
