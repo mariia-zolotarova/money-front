@@ -51,7 +51,7 @@ export default function ChartExpense({expenses}) {
         return () => {
             root.dispose();
         };
-    }, []);
+    }, [expenses]);
 
     return (
         <div id="chartdiv-expense" className="chartdiv-expense"></div>
