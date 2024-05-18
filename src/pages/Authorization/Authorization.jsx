@@ -1,6 +1,6 @@
 import './authorization.scss'
-import React, {useEffect, useState} from 'react';
-import {Button, Checkbox, Form, Input, Space} from 'antd';
+import React, {useState} from 'react';
+import {Button, Checkbox, Form, Input} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {gql, useLazyQuery} from "@apollo/client";
 import {Link, useNavigate} from "react-router-dom";
