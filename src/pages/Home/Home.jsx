@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import {DatePicker, Row, Tabs} from 'antd';
 import {gql, useQuery,  useMutation } from "@apollo/client";
 import {Navigate} from "react-router-dom";
+import dayjs from "dayjs";
 
 const { RangePicker } = DatePicker;
 
@@ -277,7 +278,7 @@ export default function Home() {
                 <h2 className="balance balance__sum">{Math.round(balance).toLocaleString()} ₴</h2>
             </div>
             <Row className="date__row" size={12}>
-                <RangePicker size={size} onChange={onChangeRange}/>
+                <RangePicker size={size} maxDate={dayjs(new Date())} onChange={onChangeRange}/>
             </Row>
            <div className="tabs tabs__container">
               <Tabs defaultActiveKey="1" items={items} onChange={onChange} />

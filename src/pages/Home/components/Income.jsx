@@ -32,7 +32,7 @@ export default function Income({ addIncome, createIncomes, incomes }){
             <Button className="income__button" type="primary" onClick={() => setIsModalOpen(true)}>Add💰</Button>
             <div className="income__row">
             <ChartIncome className="income__xychart" incomes={incomes}/>
-            <Table className="income__table" dataSource={incomes} columns={columns} rowKey={'id'} />;</div>
+            <Table className="income__table" dataSource={incomes} columns={columns} rowKey={'id'} /></div>
             <ModalIncome isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onAddIncome={addIncome} onCreateIncome={createIncomes}/>
         </div>
     )

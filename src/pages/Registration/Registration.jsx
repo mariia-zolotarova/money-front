@@ -48,7 +48,6 @@ export default function Registration() {
     const [inputPasswordValue, setPasswordInputValue] = useState();
 
     const createPeople = async () => {
-        // Get response(data) from createPerson. Pass id from response to createBalance->personId. Similar to Authorization.jsx->line:35
         const {data} = await createPerson(
             {
                 variables: {
@@ -70,7 +69,8 @@ export default function Registration() {
                     variables:{
                         data:{
                             balance: 0,
-                            person_Id: Number(personID)
+                            person_Id: Number(personID),
+                            publishedAt: new Date().toISOString()
                         }
                     }
                 }
