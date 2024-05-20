@@ -101,41 +101,43 @@ const App = () => {
 
     return (
         <Header className="header__container"
-            style={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 1,
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
+                style={{
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 1,
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
 
-            }}
+                }}
         >
 
             <div className="demo-logo"/>
-            <Menu
-                theme="dark"
-                mode="horizontal"
-                defaultSelectedKeys={['1']}
-                items={items}
-                style={{
-                    flex: 1,
-                    minWidth: 0,
+            {personId > 0 && (
+                <><Menu
+                    theme="dark"
+                    mode="horizontal"
+                    defaultSelectedKeys={['1']}
+                    items={items}
+                    style={{
+                        flex: 1,
+                        minWidth: 0,
 
-                }}
-            />
+                    }}
+                />
 
-            <div className="header__right">
+                    <div className="header__right">
 
-            <Dropdown
-                menu={{
-                    items: users,
-                }}
-                placement="topRight"
-            >
-                <UserOutlined style={{ fontSize: '20px', color: '#FFF', cursor:'pointer' }}/>
-            </Dropdown>
-            </div>
+                        <Dropdown
+                            menu={{
+                                items: users,
+                            }}
+                            placement="topRight"
+                        >
+                            <UserOutlined style={{fontSize: '20px', color: '#FFF', cursor: 'pointer'}}/>
+                        </Dropdown>
+                    </div>
+                </>)}
         </Header>
 
     );

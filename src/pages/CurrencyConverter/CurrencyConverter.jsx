@@ -107,7 +107,7 @@ export default function CurrencyConverter() {
         } else if (selectTo !== 'USD') {
             const rateTo = data?.data.find(x => x.pair === `${selectTo}_USD`).rate
             const valueInUsd = convertToUsd(value);
-            setInputTo(valueInUsd * rateTo);
+            setInputTo(Math.round((valueInUsd * rateTo) * 100) / 100);
         } else {
             setInputTo(Math.round((convertToUsd(value)) * 100) / 100)
         }
@@ -120,7 +120,7 @@ export default function CurrencyConverter() {
         } else if (selectFrom !== 'USD') {
             const rateFrom = data?.data.find(x => x.pair === `${selectFrom}_USD`).rate
             const valueInUsd = convertFromUsd(value);
-            setInputFrom(valueInUsd * rateFrom);
+            setInputFrom(Math.round((valueInUsd * rateFrom) * 100) / 100);
         } else {
             setInputFrom(Math.round((convertFromUsd(value)) * 100) / 100)
         }
