@@ -35,7 +35,6 @@ export default function CurrencyConverter() {
         data: balanceData,
         loading: balanceLoading,
         error: balanceError,
-        // refetch: refetchBalance
     } = useQuery(FETCH_BALANCE_QUERY, {
         variables: {
             filters: {

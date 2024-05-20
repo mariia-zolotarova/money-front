@@ -57,6 +57,7 @@ export default function Authorization() {
         if (data?.people?.data?.length > 0) {
             localStorage.setItem('existPerson', JSON.stringify(data.people.data[0]));
             navigate('/');
+            navigate(0)
         } else {
             setIsAuthFailed(true);
         }

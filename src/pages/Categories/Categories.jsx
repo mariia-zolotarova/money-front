@@ -99,7 +99,6 @@ export default function Categories() {
                                  alt=""/>
                         </div>
                         <h3 className="category__name">{category.attributes.title}</h3>
-                        {/*<Button type="primary">More</Button>*/}
                     </div>
                 ))}
                 <div className="category__card" onClick={() => setIsModalOpen(true)} >

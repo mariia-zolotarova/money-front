@@ -195,7 +195,7 @@ export default function History() {
                        if (record.categoryName === 'Income') {
                            return "green";
                        } else {
-                           return "white";
+                           return "pink";
                        }
                    }}/>
         </div>

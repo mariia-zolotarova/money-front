@@ -2,7 +2,7 @@ import './header.scss'
 import React from 'react';
 import {Header} from "antd/es/layout/layout";
 import {Button, Menu} from "antd";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { Dropdown} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {gql, useQuery} from "@apollo/client";
@@ -51,6 +51,7 @@ const items = [
 ]
 
 const App = () => {
+    const navigate = useNavigate();
     let person={}, personId=-1
 
     if(localStorage.length>0){
@@ -71,13 +72,14 @@ const App = () => {
         },
     });
 
-    if (loading) return <p>Loading...</p>;
+    // if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
     const people = data?.people?.data || []
 
     const logOut = () => {
         localStorage.clear();
+        navigate(0)
     };
 
     const users = people.map(person => ({

@@ -75,8 +75,10 @@ export default function Registration() {
                     }
                 }
             )
+
+            navigate('/');
+            navigate(0)
         }
-        navigate('/');
     }
 
 
